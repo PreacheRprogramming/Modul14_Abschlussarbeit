@@ -1,0 +1,26 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style TargetType="Slider" x:Key="volumeSlider">
+        <Setter Property="Orientation" Value="Vertical"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,10"/>
+        <Setter Property="Minimum" Value="0"/>
+        <Setter Property="Maximum" Value="100"/>
+        <Setter Property="Foreground" Value="Orange"/>
+        <Setter Property="TickFrequency" Value="10"/>
+        <Setter Property="TickPlacement" Value="Both"/>
+        <Setter Property="IsSnapToTickEnabled" Value="true"/>
+        <Setter Property="IsEnabled" Value="False"/>
+    </Style>
+
+    <Style TargetType="Slider" x:Key="equalizerSlider">
+        <Setter Property="Orientation" Value="Vertical"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,10"/>
+        <Setter Property="Foreground" Value="Orange"/>
+        <Setter Property="TickFrequency" Value="1"/>
+        <Setter Property="TickPlacement" Value="Both"/>
+        <Setter Property="IsEnabled" Value="True"/>
+    </Style>
+</ResourceDictionary>

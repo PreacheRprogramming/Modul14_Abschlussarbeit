@@ -1,0 +1,383 @@
+﻿<Window x:Class="Audio_Interface.MVVM.View.EqualizerView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Audio_Interface"
+        xmlns:vm="clr-namespace:Audio_Interface.MVVM.ViewModel"
+        mc:Ignorable="d"
+        Title="Equalizer" Height="550" Width="800"
+        ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        WindowStartupLocation="CenterScreen" MouseDown="Window_MouseDown">
+
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+    
+    <Border Background="#1a1a1a" CornerRadius="20">
+        <Border.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Equalizer"/>
+                <MenuItem Header="Stimmenverzerrer"/>
+                <Separator/>
+                <MenuItem Header="Minimieren"/>
+                <MenuItem Header="Schließen" Click="CloseMenuItem_Click"/>
+            </ContextMenu>
+        </Border.ContextMenu>
+
+        <Grid Margin="6">
+            <!--#region Griddefinition-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+            <!--#endregion-->
+            
+            <!--#region Equalizer-->
+            <WrapPanel Grid.Column="0"
+                       Grid.ColumnSpan="19"
+                       HorizontalAlignment="Center">
+                <ComboBox Width="100"
+                          Height="20"
+                          ItemsSource="{Binding EQVM.Bands}"
+                          SelectedItem="{Binding EQVM.SelectedEqualizer}"
+                          DisplayMemberPath="Name"/>
+                <TextBox Width="100"
+                         Height="20"
+                         Margin="10,0,0,0"
+                         Text="{Binding EQVM.EqualizerName}"/>
+                <Button Width="100"
+                        Height="20"
+                        Margin="10,0,0,0"
+                        Content="Hinzufügen"
+                        Command="{Binding EQVM.EqualizerCommand}"
+                        CommandParameter="Add"/>
+                <Button Width="100"
+                        Height="20"
+                        Margin="10,0,0,0"
+                        Content="Bearbeiten"
+                        Command="{Binding EQVM.EqualizerCommand}"
+                        CommandParameter="Edit"/>
+                <Button Width="100"
+                        Height="20"
+                        Margin="10,0,0,0"
+                        Content="Löschen"
+                        Command="{Binding EQVM.EqualizerCommand}"
+                        CommandParameter="Remove"/>
+            </WrapPanel>
+            <!--#endregion-->
+
+            <!--#region Slider 1-->
+            <TextBlock Grid.Column="0" Grid.Row="1"
+                       Text="{Binding ElementName=eqSld1,Path=Value}"
+                       Style="{StaticResource equalizerTextBlock}"/>
+
+            <Separator Grid.Column="0" Grid.Row="1" 
+                       Style="{StaticResource bottomSeparator}"/>
+
+            <Slider x:Name="eqSld1" 
+                    Grid.Column="0" Grid.Row="2"
+                    Style="{StaticResource equalizerSlider}"
+                    TickFrequency="1"
+                    Minimum="{Binding EQVM.MinimumGain}"
+                    Maximum="{Binding EQVM.MaximumGain}"
+                    Value="{Binding EQVM.SliderValues[0], Mode=TwoWay}"/>
+
+            <Separator Grid.Column="0" Grid.Row="3" 
+                       Style="{StaticResource topSeparator}"/>
+
+            <TextBlock Grid.Column="0" Grid.Row="3"
+                       Style="{StaticResource equalizerTextBlock}"
+                       Text="31.25Hz"/>
+            <!--#endregion-->
+
+            <!--#region Splitter-->
+            <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" 
+                  Style="{StaticResource splitter}"/>
+            <!--#endregion-->
+
+            <!--#region Slider 2-->
+
+            <TextBlock Grid.Column="2" Grid.Row="1"
+                       Text="{Binding ElementName=eqSld2, Path=Value}"
+                       Style="{StaticResource equalizerTextBlock}"/>
+
+            <Separator Grid.Column="2" Grid.Row="1"
+                       Style="{StaticResource bottomSeparator}"/>
+
+            <Slider x:Name="eqSld2"
+                    Grid.Column="2" Grid.Row="2"
+                    Style="{StaticResource equalizerSlider}"
+                    TickFrequency="1"
+                    Minimum="{Binding EQVM.MinimumGain}"
+                    Maximum="{Binding EQVM.MaximumGain}"
+                    Value="{Binding EQVM.SliderValues[1], Mode=TwoWay}"/>
+
+            <Separator Grid.Column="2" Grid.Row="3" 
+                       Style="{StaticResource topSeparator}"/>
+
+            <TextBlock Grid.Column="2" Grid.Row="3"
+                       Style="{StaticResource equalizerTextBlock}"
+                       Text="62.50Hz"/>
+            <!--#endregion-->
+
+            <!--#region Splitter-->
+            <Grid Grid.Column="3" Grid.Row="1" Grid.RowSpan="3" 
+                  Style="{StaticResource splitter}"/>
+            <!--#endregion-->
+
+            <!--#region Slider 3-->
+
+            <TextBlock Grid.Column="4" Grid.Row="1"
+                       Text="{Binding ElementName=eqSld3, Path=Value}"
+                       Style="{StaticResource equalizerTextBlock}"/>
+
+            <Separator Grid.Column="4" Grid.Row="1"
+                       Style="{StaticResource bottomSeparator}"/>
+
+            <Slider x:Name="eqSld3" 
+                    Grid.Column="4" Grid.Row="2"
+                    Style="{StaticResource equalizerSlider}"
+                    TickFrequency="1"
+                    Minimum="{Binding EQVM.MinimumGain}"
+                    Maximum="{Binding EQVM.MaximumGain}"
+                    Value="{Binding EQVM.SliderValues[2], Mode=TwoWay}"/>
+
+            <Separator Grid.Column="4" Grid.Row="3" 
+                       Style="{StaticResource topSeparator}"/>
+
+            <TextBlock Grid.Column="4" Grid.Row="3"
+                       Style="{StaticResource equalizerTextBlock}"
+                       Text="125Hz"/>
+            <!--#endregion-->
+
+            <!--#region Splitter-->
+            <Grid Grid.Column="5" Grid.Row="1" Grid.RowSpan="3" 
+                  Style="{StaticResource splitter}"/>
+            <!--#endregion-->
+
+            <!--#region Slider 4-->
+            <TextBlock Grid.Column="6" Grid.Row="1"
+                       Text="{Binding ElementName=eqSld4, Path=Value}"
+                       Style="{StaticResource equalizerTextBlock}"/>
+
+            <Separator Grid.Column="6" Grid.Row="1"
+                       Style="{StaticResource bottomSeparator}"/>
+
+            <Slider x:Name="eqSld4" 
+                    Grid.Column="6" Grid.Row="2"
+                    Style="{StaticResource equalizerSlider}"
+                    TickFrequency="1"
+                    Minimum="{Binding EQVM.MinimumGain}"
+                    Maximum="{Binding EQVM.MaximumGain}"
+                    Value="{Binding EQVM.SliderValues[3], Mode=TwoWay}"/>
+
+            <Separator Grid.Column="6" Grid.Row="3" 
+                       Style="{StaticResource topSeparator}"/>
+
+            <TextBlock Grid.Column="6" Grid.Row="3"
+                       Style="{StaticResource equalizerTextBlock}"
+                       Text="250Hz"/>
+            <!--#endregion-->
+
+            <!--#region Splitter-->
+            <Grid Grid.Column="7" Grid.Row="1" Grid.RowSpan="3" 
+                  Style="{StaticResource splitter}"/>
+            <!--#endregion-->
+
+            <!--#region Slider 5-->
+            <TextBlock Grid.Column="8" Grid.Row="1"
+                       Text="{Binding ElementName=eqSld5, Path=Value}"
+                       Style="{StaticResource equalizerTextBlock}"/>
+
+            <Separator Grid.Column="8" Grid.Row="1"
+                       Style="{StaticResource bottomSeparator}"/>
+
+            <Slider x:Name="eqSld5" 
+                    Grid.Column="8" Grid.Row="2"
+                    Style="{StaticResource equalizerSlider}"
+                    TickFrequency="1" IsSnapToTickEnabled="True"
+                    Minimum="{Binding EQVM.MinimumGain}"
+                    Maximum="{Binding EQVM.MaximumGain}"
+                    Value="{Binding EQVM.SliderValues[4], Mode=TwoWay}"/>
+
+            <Separator Grid.Column="8" Grid.Row="3" 
+                       Style="{StaticResource topSeparator}"/>
+
+            <TextBlock Grid.Column="8" Grid.Row="3"
+                       Style="{StaticResource equalizerTextBlock}"
+                       Text="500Hz"/>
+            <!--#endregion-->
+
+            <!--#region Splitter-->
+            <Grid Grid.Column="9" Grid.Row="1" Grid.RowSpan="3" 
+                  Style="{StaticResource splitter}"/>
+            <!--#endregion-->
+
+            <!--#region Slider 6-->
+
+            <TextBlock Grid.Column="10" Grid.Row="1"
+                       Text="{Binding ElementName=eqSld6, Path=Value}"
+                       Style="{StaticResource equalizerTextBlock}"/>
+
+            <Separator Grid.Column="10" Grid.Row="1"
+                       Style="{StaticResource bottomSeparator}"/>
+
+            <Slider x:Name="eqSld6" 
+                    Grid.Column="10" Grid.Row="2"
+                    Style="{StaticResource equalizerSlider}"
+                    TickFrequency="1"
+                    Minimum="{Binding EQVM.MinimumGain}"
+                    Maximum="{Binding EQVM.MaximumGain}"
+                    Value="{Binding EQVM.SliderValues[5], Mode=TwoWay}"/>
+
+            <Separator Grid.Column="10" Grid.Row="3" 
+                       Style="{StaticResource topSeparator}"/>
+
+            <TextBlock Grid.Column="10" Grid.Row="3"
+                       Style="{StaticResource equalizerTextBlock}"
+                       Text="1kHz"/>
+            <!--#endregion-->
+
+            <!--#region Splitter-->
+            <Grid Grid.Column="11" Grid.Row="1" Grid.RowSpan="3" 
+                  Style="{StaticResource splitter}"/>
+            <!--#endregion-->
+
+            <!--#region Slider 7-->
+            <TextBlock Grid.Column="12" Grid.Row="1"
+                       Text="{Binding ElementName=eqSld7, Path=Value}"
+                       Style="{StaticResource equalizerTextBlock}"/>
+
+            <Separator Grid.Column="12" Grid.Row="1"
+                       Style="{StaticResource bottomSeparator}"/>
+
+            <Slider x:Name="eqSld7" 
+                    Grid.Column="12" Grid.Row="2"
+                    Style="{StaticResource equalizerSlider}"
+                    TickFrequency="1"
+                    Minimum="{Binding EQVM.MinimumGain}"
+                    Maximum="{Binding EQVM.MaximumGain}"
+                    Value="{Binding EQVM.SliderValues[6], Mode=TwoWay}"/>
+
+            <Separator Grid.Column="12" Grid.Row="3" 
+                       Style="{StaticResource topSeparator}"/>
+
+            <TextBlock Grid.Column="12" Grid.Row="3"
+                       Style="{StaticResource equalizerTextBlock}"
+                       Text="2kHz"/>
+            <!--#endregion-->
+
+            <!--#region Splitter-->
+            <Grid Grid.Column="13" Grid.Row="1" Grid.RowSpan="3" 
+                  Style="{StaticResource splitter}"/>
+            <!--#endregion-->
+
+            <!--#region Slider 8-->
+            <TextBlock Grid.Column="14" Grid.Row="1"
+                           Text="{Binding ElementName=eqSld8, Path=Value}"
+                           Style="{StaticResource equalizerTextBlock}"/>
+
+            <Separator Grid.Column="14" Grid.Row="1"
+                       Style="{StaticResource bottomSeparator}"/>
+
+            <Slider x:Name="eqSld8" 
+                    Grid.Column="14" Grid.Row="2"
+                    Style="{StaticResource equalizerSlider}"
+                    TickFrequency="1"
+                    Minimum="{Binding EQVM.MinimumGain}"
+                    Maximum="{Binding EQVM.MaximumGain}"
+                    Value="{Binding EQVM.SliderValues[7], Mode=TwoWay}"/>
+
+            <Separator Grid.Column="14" Grid.Row="3" 
+                       Style="{StaticResource topSeparator}"/>
+
+            <TextBlock Grid.Column="14" Grid.Row="3"
+                       Style="{StaticResource equalizerTextBlock}"
+                       Text="4kHz"/>
+            <!--#endregion-->
+
+            <!--#region Splitter-->
+            <Grid Grid.Column="15" Grid.Row="1" Grid.RowSpan="3" 
+                  Style="{StaticResource splitter}"/>
+            <!--#endregion-->
+
+            <!--#region Slider 9-->
+            <TextBlock Grid.Column="16" Grid.Row="1"
+                       Text="{Binding ElementName=eqSld9, Path=Value}"
+                       Style="{StaticResource equalizerTextBlock}"/>
+
+            <Separator Grid.Column="16" Grid.Row="1"
+                       Style="{StaticResource bottomSeparator}"/>
+
+            <Slider x:Name="eqSld9" 
+                    Grid.Column="16" Grid.Row="2"
+                    Style="{StaticResource equalizerSlider}"
+                    TickFrequency="1"
+                    Minimum="{Binding EQVM.MinimumGain}"
+                    Maximum="{Binding EQVM.MaximumGain}"
+                    Value="{Binding EQVM.SliderValues[8], Mode=TwoWay}"/>
+
+            <Separator Grid.Column="16" Grid.Row="3" 
+                       Style="{StaticResource topSeparator}"/>
+
+            <TextBlock Grid.Column="16" Grid.Row="3"
+                       Style="{StaticResource equalizerTextBlock}"
+                       Text="8kHz"/>
+            <!--#endregion-->
+
+            <!--#region Splitter-->
+            <Grid Grid.Column="17" Grid.Row="1" Grid.RowSpan="3" 
+                  Style="{StaticResource splitter}"/>
+            <!--#endregion-->
+
+            <!--#region Slider 10-->
+            <TextBlock Grid.Column="18" Grid.Row="1"
+                           Text="{Binding ElementName=eqSld10, Path=Value}"
+                           Style="{StaticResource equalizerTextBlock}"/>
+
+            <Separator Grid.Column="18" Grid.Row="1"
+                       Style="{StaticResource bottomSeparator}"/>
+
+            <Slider x:Name="eqSld10" 
+                    Grid.Column="18" Grid.Row="2"
+                    Style="{StaticResource equalizerSlider}"
+                    TickFrequency="1"
+                    Minimum="{Binding EQVM.MinimumGain}"
+                    Maximum="{Binding EQVM.MaximumGain}"
+                    Value="{Binding EQVM.SliderValues[9], Mode=TwoWay}"/>
+
+            <Separator Grid.Column="18" Grid.Row="3" 
+                       Style="{StaticResource topSeparator}"/>
+
+            <TextBlock Grid.Column="18" Grid.Row="3"
+                       Style="{StaticResource equalizerTextBlock}"
+                       Text="16kHz"/>
+            <!--#endregion-->
+        </Grid>
+    </Border>
+
+</Window>
